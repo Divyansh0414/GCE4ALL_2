@@ -30,6 +30,7 @@ source $HOME/miniconda/bin/activate && conda activate DECIMER_ENV
 # This step installs the necessary Python packages such as decimer, pdf2image, Pillow, numpy, and argparse.
 pip install --upgrade pip
 pip install decimer pdf2image Pillow numpy argparse
+pip install decimer-segmentation
 
 # Step 4: Clone and install DECIMER-Image-Segmentation
 # Clone the DECIMER-Image-Segmentation repository, install it, and install poppler for PDF processing.
