@@ -47,8 +47,8 @@ fi
 
 # Attempt to install a compatible version of TensorFlow and Keras
 if ! pip install tensorflow==2.12.0 keras==2.12.0; then
-    echo "TensorFlow 2.12.0 not found. Attempting to install the closest available version."
-    pip install tensorflow==2.10.1 keras==2.10.1
+    echo "TensorFlow 2.12.0 not found. Attempting to install TensorFlow 2.9.0."
+    pip install tensorflow==2.9.0 keras==2.9.0
 fi
 
 # Python script for extracting chemical structures and predicting SMILES
