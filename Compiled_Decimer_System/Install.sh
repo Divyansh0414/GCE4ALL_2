@@ -24,7 +24,7 @@ if conda env list | grep -q "DECIMER_ENV"; then
 else
     conda create --name DECIMER_ENV python=3.10 -y
 fi
-source $HOME/miniconda/bin/activate DECIMER_ENV
+source $HOME/miniconda/bin/activate && conda activate DECIMER_ENV
 
 # Step 3: Install necessary Python packages
 # This step installs the necessary Python packages such as decimer, pdf2image, Pillow, numpy, and argparse.
@@ -63,7 +63,7 @@ fi
 # Python script for extracting chemical structures and predicting SMILES
 # Create a Python script that extracts chemical structures from a PDF and predicts SMILES strings.
 cat <<EOF > decimer_smiles_extraction.py
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 """
 This script extracts chemical structures from a given PDF file and predicts their SMILES strings.
