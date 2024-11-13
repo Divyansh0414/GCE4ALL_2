@@ -11,13 +11,19 @@ then
     bash Miniconda3-latest-Linux-x86_64.sh -b -p $HOME/miniconda
     export PATH="$HOME/miniconda/bin:$PATH"
     echo "Miniconda installed."
-else
-    echo "Conda is already installed."
+elif [ -d "$HOME/miniconda" ]; then
+    echo "Miniconda installation detected. Updating Miniconda..."
+    bash Miniconda3-latest-Linux-x86_64.sh -b -u -p $HOME/miniconda
+    export PATH="$HOME/miniconda/bin:$PATH"
 fi
 
 # Step 2: Create and activate a conda environment for DECIMER
 # This step creates a new conda environment named DECIMER_ENV and activates it.
-conda create --name DECIMER_ENV python=3.10 -y
+if conda env list | grep -q "DECIMER_ENV"; then
+    echo "Conda environment DECIMER_ENV already exists. Activating it..."
+else
+    conda create --name DECIMER_ENV python=3.10 -y
+fi
 source $HOME/miniconda/bin/activate DECIMER_ENV
 
 # Step 3: Install necessary Python packages
@@ -27,11 +33,14 @@ pip install decimer pdf2image Pillow numpy argparse
 
 # Step 4: Clone and install DECIMER-Image-Segmentation
 # Clone the DECIMER-Image-Segmentation repository, install it, and install poppler for PDF processing.
-git clone https://github.com/Kohulan/DECIMER-Image-Segmentation
+if [ -d "DECIMER-Image-Segmentation" ]; then
+    echo "DECIMER-Image-Segmentation directory already exists. Skipping cloning..."
+else
+    git clone https://github.com/Kohulan/DECIMER-Image-Segmentation
+fi
 cd DECIMER-Image-Segmentation
 pip install .
 conda install -c conda-forge poppler -y
-pip install decimer-segmentation==1.1.2
 cd ..
 
 # Step 5: Install TensorFlow and Keras compatible versions
@@ -46,9 +55,9 @@ if pip show keras &> /dev/null; then
 fi
 
 # Attempt to install a compatible version of TensorFlow and Keras
-if ! pip install tensorflow==2.10.1 keras==2.10.0; then
-    echo "TensorFlow 2.10.1 not found. Attempting to install TensorFlow 2.8.0."
-    pip install tensorflow==2.8.0 keras==2.8.0
+if ! pip install "tensorflow>=2.10,<2.13" "keras>=2.10,<2.13"; then
+    echo "Compatible TensorFlow or Keras versions not found. Attempting to install the latest available version compatible with DECIMER."
+    pip install tensorflow keras
 fi
 
 # Python script for extracting chemical structures and predicting SMILES
