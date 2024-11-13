@@ -31,7 +31,7 @@ git clone https://github.com/Kohulan/DECIMER-Image-Segmentation
 cd DECIMER-Image-Segmentation
 pip install .
 conda install -c conda-forge poppler -y
-pip install decimer-segmentation
+pip install decimer-segmentation==1.1.2
 cd ..
 
 # Step 5: Install TensorFlow and Keras compatible versions
@@ -46,9 +46,9 @@ if pip show keras &> /dev/null; then
 fi
 
 # Attempt to install a compatible version of TensorFlow and Keras
-if ! pip install tensorflow==2.12.0 keras==2.12.0; then
-    echo "TensorFlow 2.12.0 not found. Attempting to install TensorFlow 2.9.0."
-    pip install tensorflow==2.9.0 keras==2.9.0
+if ! pip install tensorflow==2.10.1 keras==2.10.0; then
+    echo "TensorFlow 2.10.1 not found. Attempting to install TensorFlow 2.8.0."
+    pip install tensorflow==2.8.0 keras==2.8.0
 fi
 
 # Python script for extracting chemical structures and predicting SMILES
