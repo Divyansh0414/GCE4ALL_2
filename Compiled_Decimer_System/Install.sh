@@ -18,7 +18,7 @@ fi
 # Step 2: Create and activate a conda environment for DECIMER
 # This step creates a new conda environment named DECIMER_ENV and activates it.
 conda create --name DECIMER_ENV python=3.10 -y
-conda activate DECIMER_ENV
+source $HOME/miniconda/bin/activate DECIMER_ENV
 
 # Step 3: Install necessary Python packages
 # This step installs the necessary Python packages such as decimer, pdf2image, Pillow, numpy, and argparse.
@@ -36,7 +36,14 @@ cd ..
 
 # Step 5: Install TensorFlow and Keras compatible versions
 # Uninstall any existing versions of TensorFlow and Keras, then install specific compatible versions.
-pip uninstall tensorflow keras -y
+if pip show tensorflow &> /dev/null; then
+    echo "Uninstalling existing TensorFlow..."
+    pip uninstall tensorflow -y
+fi
+if pip show keras &> /dev/null; then
+    echo "Uninstalling existing Keras..."
+    pip uninstall keras -y
+fi
 pip install tensorflow==2.12.0 keras==2.12.0
 
 # Python script for extracting chemical structures and predicting SMILES

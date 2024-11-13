@@ -3,7 +3,7 @@ It will also install an script that can be called upon to extract out the SMILES
 
 ## INSTALLATION: 
     Execute the script to install all necessary components and run the Python script:
-     `   ./install_and_run.sh    `
+     `   ./Install.sh    `
 
 
 ## After running the installation, you can use the generated Python script (decimer_smiles_extraction.py) with specific parameters:
